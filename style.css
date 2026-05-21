@@ -1,0 +1,36 @@
+.follow-button{
+    background-color: blue;
+    color: white;
+
+    /*border-radius: 5px;*/
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none; 
+    margin: auto;
+}
+
+.follow-button:hover{
+    background-color: darkblue;
+    cursor: pointer;
+}
+.bio{
+    font-family: italic;
+}
+
+img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    
+}
+body{
+    background-color: brown;
+    color: white;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 200px;
+    margin-left: 200px;
+}
+
