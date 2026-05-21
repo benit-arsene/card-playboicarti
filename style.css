@@ -28,7 +28,7 @@ body{
     color: white;
     text-align: center;
     align-items: center;
-    display: flex;
+    /*display: flex;*/
     justify-content: center;
     margin-right: 200px;
     margin-left: 200px;
