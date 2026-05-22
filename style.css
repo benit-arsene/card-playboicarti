@@ -1,4 +1,46 @@
-.follow-button{
+.navbar {
+    display: flex;
+
+   /* scroll-behavior: smooth;*/
+    justify-content: space-between;
+    align-items: center;
+    background-color: darkred;
+    padding: 15px;
+    border-bottom: 3px solid blue;
+    margin-bottom: 20px;
+   position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 500; 
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: white;
+    margin-left: 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+    margin-right: 20px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: yellow;
+    text-decoration: underline;
+}
+
+#follow-button{
     background-color: blue;
     color: white;
 
@@ -9,7 +51,7 @@
     margin: auto;
 }
 
-.follow-button:hover{
+#follow-button:hover{
     background-color: darkblue;
     cursor: pointer;
 }
@@ -30,7 +72,49 @@ body{
     align-items: center;
     /*display: flex;*/
     justify-content: center;
-    margin-right: 200px;
-    margin-left: 200px;
+    margin-right: 50px;
+    margin-left: 50px;
+    padding-top: 90px;
+}
+div:hover{
+     background-color: darkred;
+}
+ul {
+    list-style-type: none; /* Removes the ugly dots completely */
+    padding: 0;
+    margin: 0;
+    text-align: center;
 }
 
+li {
+    margin: 10px 0; /* Adds clean spacing between tracks */
+    font-size: 1.1rem;
+}
+footer{
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: white;
+}
+h2{
+    text-decoration: underline;
+}
+
+#instagram-button{
+    background-color: blue;
+    color: white !important;
+    text-decoration: none !important;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+}
+
+#instagram-button:hover{
+    background-color: darkblue;
+    cursor: pointer;
+    color: white;
+
+}
+#instagram-button:visited{
+    color: white;
+}

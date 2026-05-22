@@ -4,15 +4,25 @@
         <title>User Profile Card</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css"> 
+
     </head>
     <body class="card">
+       <header class="navbar">
+           <div class="logo">Carti Music</div>
+           <nav class="nav-links">
+               <a href="#home">Home</a>
+               <a href="#songs">Songs</a>
+               <a href="#albums">Albums</a>
+               
+           </nav>
+       </header>
        <div> 
         <img src="C:\Users\LODDYRB\Pictures\Camera Roll\playboi carti.jpg" alt="playboi carti" class="Profile">
         <h1 class="Name">Playboi Carti</h1>
         <p class="Bio">Playboi Carti, born Jordan Terrell Carter, is an American rapper and songwriter known for his unique style and influence on the trap music scene. He gained popularity with his mixtapes and hit songs like "Magnolia" and "Wokeuplikethis*". Carti's music is characterized by its minimalist production, catchy hooks, and his distinctive vocal delivery. He has a dedicated fanbase and continues to be a prominent figure in the hip-hop industry.</p>
-        <button onclick="alert('Followed!')" class="follow-button">Follow</button>
-        <hr>
-       </div> 
+        <button id="follow-button">Follow</button>
+        <a id="instagram-button" href="https://instagram.com/playboicarti" target="_blank"> Instagram</a>
+        </div> 
        <hr>
        <div class="popular-songs">
        <h1> Popular Songs</h1>
@@ -29,6 +39,12 @@
           <li> TOXIC ft. Skepta (2025)</li>
           <li>CRUSH ft. Travis Scott (2025)</li> 
          </ul>
-       </div>    
+       </div>  
+     <script src="script.js"></script> 
+     <script src="function.js"></script>
+    <footer>
+        <p>Created by LODDYRB</p>   
+    </footer>    
     </body>
+    
 </html>    
