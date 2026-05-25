@@ -32,7 +32,7 @@ const artistsData = [
         id: 4,
         name: "Kendrick Lamar",
         bio: "Kendrick Lamar, born Kendrick Lamar Duckworth, is an American rapper, singer, and songwriter from Compton, California. He is known for his lyrical complexity, conceptual albums, and conscious rap style. His album 'good kid, m.A.A.d city' is considered a modern masterpiece, and his work continues to influence contemporary hip-hop.",
-        image: "https://via.placeholder.com/180?text=Kendrick+Lamar",
+        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiS7wE4RD3OkHTpOp-GgqmrJLmQ-OS-Hg5WFLd3twa3AbEKEaCsoaal_8m3bQukqXxbpn3Ztg6YwW0wbYoJssQyeVMuWFDBzXl20r6Yw&s=10",
         albums: ["Mr. Morale & The Big Steppers (2022)", "DAMN. (2017)", "To Pimp a Butterfly (2015)", "good kid, m.A.A.d city (2012)"],
         singles: ["HUMBLE. (2017)", "Swimming Pools (Drank) (2011)", "King Kunta (2015)", "The Heart Part 5 (2022)"],
         instagram: "https://instagram.com/kendricklamar"
@@ -41,7 +41,7 @@ const artistsData = [
         id: 5,
         name: "The Weeknd",
         bio: "The Weeknd, born Abel Tesfaye, is a Canadian singer, songwriter, and record producer known for his unique vocal style and dark R&B sound. He has achieved massive commercial success with albums like 'After Hours' and 'Starboy', and is known for his mysterious persona and innovative music videos.",
-        image: "https://via.placeholder.com/180?text=The+Weeknd",
+        image: "https://cdn-images.dzcdn.net/images/artist/581693b4724a7fcfa754455101e13a44/1900x1900-000000-80-0-0.jpg",
         albums: ["After Hours (2020)", "Starboy (2016)", "Beauty Behind the Madness (2015)", "House of Balloons (2011)"],
         singles: ["Blinding Lights (2019)", "Starboy ft. Daft Punk (2016)", "The Hills (2014)", "Can't Feel My Face (2015)"],
         instagram: "https://instagram.com/theweeknd"
@@ -50,7 +50,7 @@ const artistsData = [
         id: 6,
         name: "Lil Baby",
         bio: "Lil Baby, born Kentrell DeSean Weighs, is an American rapper from Atlanta, Georgia. He rose to prominence with his melodic trap style and collaborations with major artists. His albums 'Harder Than Ever' and 'My Turn' have been commercially successful and have established him as one of the most streamed rappers.",
-        image: "https://via.placeholder.com/180?text=Lil+Baby",
+        image: "https://emirice.com/cdn/shop/articles/lil_baby_1800x_db477aa3-2645-4554-a8b0-7a475c1ee3e4_1418x.jpg?v=1569419930",
         albums: ["It's Only Me (2024)", "Harder Than Ever (2018)", "My Turn (2020)"],
         singles: ["Drip Season 3 (2018)", "Yes Indeed ft. Drake (2018)", "Cash ft. Gunna (2017)", "Close to You (2022)"],
         instagram: "https://instagram.com/lilbaby"
@@ -72,13 +72,22 @@ document.addEventListener('DOMContentLoaded', function() {
 function initHomePage() {
     const artistsGrid = document.getElementById('artistsGrid');
     
-    artistsData.forEach(artist => {
+    // Sort artists: followed artists first
+    const sortedArtists = [...artistsData].sort((a, b) => {
+        const aFollowed = localStorage.getItem(`followed_${a.id}`) === 'true' ? 1 : 0;
+        const bFollowed = localStorage.getItem(`followed_${b.id}`) === 'true' ? 1 : 0;
+        return bFollowed - aFollowed; // Followed artists (1) come before unfollowed (0)
+    });
+    
+    sortedArtists.forEach(artist => {
         const artistCard = document.createElement('div');
         artistCard.className = 'artist-card';
+        const isFollowed = localStorage.getItem(`followed_${artist.id}`) === 'true';
         artistCard.innerHTML = `
             <img src="${artist.image}" alt="${artist.name}">
             <h3>${artist.name}</h3>
             <p class="artist-bio-preview">${artist.bio.substring(0, 100)}...</p>
+            ${isFollowed ? '<div class="followed-badge">Following</div>' : ''}
         `;
         
         artistCard.addEventListener('click', function() {
@@ -125,17 +134,26 @@ function initProfilePage() {
         });
     }
     
-    // Handle follow button
+    // Handle follow button with localStorage persistence
     const followButton = document.getElementById('follow-button');
+    const followKey = `followed_${artist.id}`;
+    
+    // Check if already followed and set button state
+    if (localStorage.getItem(followKey) === 'true') {
+        followButton.textContent = 'Following';
+    }
+    
     if (followButton) {
         followButton.addEventListener('click', function() {
             if (followButton.textContent === 'Follow') {
                 followButton.textContent = 'Following';
+                localStorage.setItem(followKey, 'true');
                 alert(`You have followed ${artist.name}!`);
             } else if (followButton.textContent === 'Following') {
                 const confirmUnfollow = confirm(`Are you sure you want to unfollow ${artist.name}?`);
                 if (confirmUnfollow) {
                     followButton.textContent = 'Follow';
+                    localStorage.removeItem(followKey);
                     alert(`You have unfollowed ${artist.name}!`);
                 }
             }
