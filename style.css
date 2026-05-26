@@ -80,7 +80,7 @@
 .hero-section {
     position: relative;
     height: 100vh;
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSqA7B2HI5rzj3w_jjDZZgo5zqP86WxCZUJA&s");
+    background-image: url("https://nevalleynews.org/wp-content/uploads/2025/10/IMG_3230.jpg");
     background-size: cover;
     background-position: center;
     display: flex;
@@ -403,4 +403,481 @@ hr {
     margin: 30px 0;
     border: none;
     border-top: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ===== ADMIN PANEL STYLES ===== */
+.admin-page {
+    background-color: #1a1a1a;
+    color: white;
+    min-height: 100vh;
+}
+
+.admin-user {
+    color: yellow;
+    font-size: 0.9rem;
+}
+
+.logout-btn {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(135deg, #ff3333, #ff0000);
+    transform: scale(1.05);
+}
+
+/* Login Styles */
+.login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    padding: 20px;
+}
+
+.login-box {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid darkred;
+    border-radius: 15px;
+    padding: 40px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 8px 32px rgba(220, 20, 60, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.login-box h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: white;
+    font-size: 2rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ddd;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2d2d2d;
+    color: white;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: darkred;
+    box-shadow: 0 0 5px rgba(220, 20, 60, 0.3);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.login-hint {
+    text-align: center;
+    margin-top: 20px;
+    color: #aaa;
+    font-size: 0.85rem;
+}
+
+/* Dashboard Container */
+.admin-dashboard {
+    display: flex;
+    margin-top: 70px;
+    min-height: calc(100vh - 70px);
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+}
+
+/* Sidebar */
+.admin-sidebar {
+    width: 250px;
+    background-color: #2d2d2d;
+    border-right: 2px solid darkred;
+    padding: 20px 0;
+    position: sticky;
+    top: 70px;
+    height: calc(100vh - 70px);
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    margin: 0;
+}
+
+.sidebar-menu a {
+    display: block;
+    padding: 15px 20px;
+    color: #aaa;
+    text-decoration: none;
+    border-left: 4px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+    background-color: #1a1a1a;
+    border-left-color: darkred;
+    color: white;
+}
+
+/* Admin Content */
+.admin-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background-color: #1a1a1a;
+}
+
+.admin-tab {
+    display: none;
+}
+
+.admin-tab.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.admin-tab h2 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    text-decoration: none;
+    display: block;
+}
+
+/* Dashboard Stats */
+.dashboard-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+    border: 2px solid darkred;
+    border-radius: 10px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(220, 20, 60, 0.2);
+}
+
+.stat-card h3 {
+    color: #ddd;
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    color: darkred;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Tables */
+.admin-table,
+#recentArtistsTable {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #2d2d2d;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.admin-table thead,
+#recentArtistsTable thead {
+    background-color: darkred;
+}
+
+.admin-table th,
+#recentArtistsTable th {
+    padding: 15px;
+    text-align: left;
+    color: white;
+    font-weight: bold;
+}
+
+.admin-table td,
+#recentArtistsTable td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #444;
+    color: #ddd;
+}
+
+.admin-table tr:hover,
+#recentArtistsTable tr:hover {
+    background-color: #1a1a1a;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-edit,
+.btn-delete {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-edit {
+    background-color: #0066cc;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #0052a3;
+    transform: scale(1.05);
+}
+
+.btn-delete {
+    background-color: #cc0000;
+    color: white;
+}
+
+.btn-delete:hover {
+    background-color: #990000;
+    transform: scale(1.05);
+}
+
+/* Buttons */
+.btn-primary,
+.btn-secondary {
+    border: none;
+    border-radius: 5px;
+    padding: 12px 25px;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #ff3333, #ff0000);
+    transform: scale(1.05);
+}
+
+.btn-secondary {
+    background-color: #444;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #2d2d2d;
+    color: white;
+}
+
+.search-bar input:focus {
+    outline: none;
+    border-color: darkred;
+}
+
+/* Forms */
+.artist-form {
+    background-color: #2d2d2d;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.artist-form .form-group {
+    margin-bottom: 20px;
+}
+
+.artist-form .form-row {
+    margin-bottom: 20px;
+}
+
+.artist-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    overflow: auto;
+    padding-top: 100px;
+}
+
+.modal-content {
+    background-color: #2d2d2d;
+    margin: 5% auto;
+    padding: 30px;
+    border: 2px solid darkred;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+    color: white;
+    margin-top: 0;
+    text-decoration: none;
+    display: block;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover,
+.close:focus {
+    color: white;
+}
+
+/* Recent Activity */
+.recent-activity {
+    background-color: #2d2d2d;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.recent-activity h3 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-dashboard {
+        flex-direction: column;
+    }
+    
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid darkred;
+        position: relative;
+        top: 0;
+    }
+    
+    .sidebar-menu {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    .sidebar-menu a {
+        flex: 1;
+        min-width: 150px;
+        border-left: none;
+        border-bottom: 4px solid transparent;
+    }
+    
+    .sidebar-menu a.active {
+        border-left: none;
+        border-bottom-color: darkred;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .popular-songs {
+        flex-direction: column;
+    }
+    
+    .admin-table {
+        font-size: 0.85rem;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 8px 10px;
+    }
 }

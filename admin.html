@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel - Hip-Hop Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body class="admin-page">
+    <header class="navbar">
+        <div class="logo">Hip-Hop Hub - Admin</div>
+        <nav class="nav-links">
+            <a href="index.html">Home</a>
+            <span id="adminUser" class="admin-user"></span>
+            <button id="logoutBtn" class="logout-btn" onclick="logoutAdmin()" style="display: none;">Logout</button>
+        </nav>
+    </header>
+
+    <!-- Login Section -->
+    <div id="loginSection" class="login-container">
+        <div class="login-box">
+            <h1>Admin Login</h1>
+            <form onsubmit="loginAdmin(event)">
+                <div class="form-group">
+                    <label for="adminUsername">Username:</label>
+                    <input type="text" id="adminUsername" placeholder="Enter username" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password:</label>
+                    <input type="password" id="adminPassword" placeholder="Enter password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <p class="login-hint">Demo: username: <strong>admin</strong> | password: <strong>1234</strong></p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Section -->
+    <div id="dashboardSection" class="admin-dashboard" style="display: none;">
+        <div class="dashboard-container">
+            <!-- Sidebar Menu -->
+            <aside class="admin-sidebar">
+                <ul class="sidebar-menu">
+                    <li><a href="#" onclick="showTab('dashboard')" class="menu-link active">Dashboard</a></li>
+                    <li><a href="#" onclick="showTab('artists')" class="menu-link">Manage Artists</a></li>
+                    <li><a href="#" onclick="showTab('addArtist')" class="menu-link">Add New Artist</a></li>
+                </ul>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="admin-content">
+                <!-- Dashboard Tab -->
+                <section id="dashboardTab" class="admin-tab active">
+                    <h2>Dashboard</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Total Artists</h3>
+                            <p id="totalArtists" class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Albums</h3>
+                            <p id="totalAlbums" class="stat-number">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Singles</h3>
+                            <p id="totalSingles" class="stat-number">0</p>
+                        </div>
+                    </div>
+                    <div class="recent-activity">
+                        <h3>Recent Artists</h3>
+                        <table id="recentArtistsTable">
+                            <thead>
+                                <tr>
+                                    <th>Artist Name</th>
+                                    <th>Albums</th>
+                                    <th>Singles</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Manage Artists Tab -->
+                <section id="artistsTab" class="admin-tab">
+                    <h2>Manage Artists</h2>
+                    <div class="search-bar">
+                        <input type="text" id="searchArtist" placeholder="Search artist by name...">
+                        <button onclick="searchArtists()" class="btn-secondary">Search</button>
+                    </div>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Albums</th>
+                                <th>Singles</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="artistsTableBody">
+                            <!-- Artists will be populated here -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Add Artist Tab -->
+                <section id="addArtistTab" class="admin-tab">
+                    <h2>Add New Artist</h2>
+                    <form onsubmit="addNewArtist(event)" class="artist-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="artistName">Artist Name:</label>
+                                <input type="text" id="artistName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="artistImage">Image URL:</label>
+                                <input type="url" id="artistImage" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artistBio">Biography:</label>
+                            <textarea id="artistBio" rows="5" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="artistInstagram">Instagram URL:</label>
+                            <input type="url" id="artistInstagram" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="artistAlbums">Albums (comma-separated):</label>
+                                <textarea id="artistAlbums" rows="3" placeholder="Album 1, Album 2, Album 3" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="artistSingles">Singles (comma-separated):</label>
+                                <textarea id="artistSingles" rows="3" placeholder="Single 1, Single 2, Single 3" required></textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Add Artist</button>
+                        <button type="reset" class="btn-secondary">Clear</button>
+                    </form>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <!-- Edit Artist Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <h2>Edit Artist</h2>
+            <form onsubmit="saveArtistChanges(event)" id="editForm" class="artist-form">
+                <input type="hidden" id="editArtistId">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editArtistName">Artist Name:</label>
+                        <input type="text" id="editArtistName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArtistImage">Image URL:</label>
+                        <input type="url" id="editArtistImage" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="editArtistBio">Biography:</label>
+                    <textarea id="editArtistBio" rows="5" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="editArtistInstagram">Instagram URL:</label>
+                    <input type="url" id="editArtistInstagram" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editArtistAlbums">Albums (comma-separated):</label>
+                        <textarea id="editArtistAlbums" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="editArtistSingles">Singles (comma-separated):</label>
+                        <textarea id="editArtistSingles" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Save Changes</button>
+                <button type="button" class="btn-secondary" onclick="closeEditModal()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="admin.js"></script>
+</body>
+</html>

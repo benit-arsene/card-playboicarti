@@ -1,6 +1,6 @@
 
-// Artist Database
-const artistsData = [
+// Default Artist Database
+const defaultArtistsData = [
     {
         id: 1,
         name: "Drake",
@@ -56,6 +56,9 @@ const artistsData = [
         instagram: "https://instagram.com/lilbaby"
     }
 ];
+
+// Load artists from localStorage or use default data
+let artistsData = JSON.parse(localStorage.getItem('artistsData')) || defaultArtistsData;
 
 // Initialize the page
 document.addEventListener('DOMContentLoaded', function() {
