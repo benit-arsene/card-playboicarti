@@ -131,12 +131,17 @@ function updateRecentArtistsTable() {
     const tableBody = document.querySelector('#recentArtistsTable tbody');
     tableBody.innerHTML = '';
 
-    artistsData.slice(0, 5).forEach(artist => {
+    // Sort artists by visits in descending order (highest visits first)
+    const sortedArtists = [...artistsData].sort((a, b) => {
+        return (b.visits || 0) - (a.visits || 0);
+    });
+
+    sortedArtists.forEach(artist => {
         const row = document.createElement('tr');
         row.innerHTML = `
             <td>${artist.name}</td>
-            <td>${artist.albums.length}</td>
-            <td>${artist.singles.length}</td>
+            <td>${artist.visits || 0}</td>
+            <td>${artist.minutesSpent || 0}</td>
         `;
         tableBody.appendChild(row);
     });
@@ -194,7 +199,9 @@ function addNewArtist(event) {
         image: document.getElementById('artistImage').value,
         albums: albums,
         singles: singles,
-        instagram: document.getElementById('artistInstagram').value
+        instagram: document.getElementById('artistInstagram').value,
+        visits: 0,
+        minutesSpent: 0
     };
 
     artistsData.push(newArtist);
@@ -246,6 +253,7 @@ function saveArtistChanges(event) {
     const artistIndex = artistsData.findIndex(a => a.id === id);
 
     if (artistIndex !== -1) {
+        const oldArtist = artistsData[artistIndex];
         artistsData[artistIndex] = {
             id: id,
             name: document.getElementById('editArtistName').value,
@@ -253,7 +261,9 @@ function saveArtistChanges(event) {
             image: document.getElementById('editArtistImage').value,
             instagram: document.getElementById('editArtistInstagram').value,
             albums: document.getElementById('editArtistAlbums').value.split(',').map(a => a.trim()),
-            singles: document.getElementById('editArtistSingles').value.split(',').map(s => s.trim())
+            singles: document.getElementById('editArtistSingles').value.split(',').map(s => s.trim()),
+            visits: oldArtist.visits || 0,
+            minutesSpent: oldArtist.minutesSpent || 0
         };
 
         localStorage.setItem('artistsData', JSON.stringify(artistsData));

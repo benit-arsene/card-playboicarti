@@ -1,4 +1,12 @@
 
+// Secret admin access with keyboard shortcut (Ctrl+Shift+A)
+document.addEventListener('keydown'
+    , function(event) {
+    if (event.ctrlKey && event.shiftKey && event.key === 'A') {
+        window.location.href = 'admin.html';
+    }
+});
+
 // Default Artist Database
 const defaultArtistsData = [
     {
@@ -111,6 +119,29 @@ function initProfilePage() {
     const artist = artistsData.find(a => a.id === parseInt(selectedArtistId));
     
     if (artist) {
+        // Track visit - increment visits counter
+        if (!artist.visits) {
+            artist.visits = 0;
+        }
+        artist.visits += 1;
+        
+        // Initialize minutes spent tracking
+        if (!artist.minutesSpent) {
+            artist.minutesSpent = 0;
+        }
+        
+        // Record the start time when user enters profile
+        const pageStartTime = Date.now();
+        localStorage.setItem(`profileStartTime_${artist.id}`, pageStartTime);
+        
+        // Save updated artist data back to localStorage
+        localStorage.setItem('artistsData', JSON.stringify(artistsData));
+        
+        // Track time spent when user leaves the profile page
+        window.addEventListener('beforeunload', function() {
+            trackTimeSpent(artist.id);
+        });
+        
         // Populate artist information
         document.getElementById('artistImage').src = artist.image;
         document.getElementById('artistImage').alt = artist.name;
@@ -161,6 +192,33 @@ function initProfilePage() {
                 }
             }
         });
+    }
+}
+
+// Function to track time spent on artist profile
+function trackTimeSpent(artistId) {
+    const startTimeKey = `profileStartTime_${artistId}`;
+    const startTime = localStorage.getItem(startTimeKey);
+    
+    if (startTime) {
+        const endTime = Date.now();
+        const timeSpentMs = endTime - parseInt(startTime);
+        const timeSpentMinutes = Math.round(timeSpentMs / 60000); // Convert milliseconds to minutes
+        
+        // Add to artist's total minutes spent
+        const artist = artistsData.find(a => a.id === artistId);
+        if (artist) {
+            if (!artist.minutesSpent) {
+                artist.minutesSpent = 0;
+            }
+            artist.minutesSpent += timeSpentMinutes;
+            
+            // Save updated data
+            localStorage.setItem('artistsData', JSON.stringify(artistsData));
+        }
+        
+        // Clean up the start time from localStorage
+        localStorage.removeItem(startTimeKey);
     }
 }
 
