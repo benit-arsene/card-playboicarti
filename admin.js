@@ -73,7 +73,7 @@ function checkAdminSession() {
         loginSection.style.display = 'none';
         dashboardSection.style.display = 'block';
         logoutBtn.style.display = 'block';
-        adminUser.textContent = 'Welcome, ' + adminSession;
+        //adminUser.textContent = 'Welcome, ' + adminSession;
         initializeDashboard();
     } else {
         loginSection.style.display = 'block';
@@ -104,6 +104,12 @@ function logoutAdmin() {
     document.getElementById('adminUsername').value = '';
     document.getElementById('adminPassword').value = '';
     checkAdminSession();
+}
+
+// Helper: navigate to artist profile
+function viewArtistProfile(id) {
+    localStorage.setItem('selectedArtistId', id);
+    window.location.href = 'profile.html';
 }
 
 // Dashboard Functions
@@ -138,11 +144,15 @@ function updateRecentArtistsTable() {
 
     sortedArtists.forEach(artist => {
         const row = document.createElement('tr');
+        row.className = 'clickable-row';
         row.innerHTML = `
             <td>${artist.name}</td>
             <td>${artist.visits || 0}</td>
             <td>${artist.minutesSpent || 0}</td>
         `;
+        row.addEventListener('click', function() {
+            viewArtistProfile(artist.id);
+        });
         tableBody.appendChild(row);
     });
 }
@@ -170,16 +180,22 @@ function loadArtistsTable() {
 
     artistsData.forEach(artist => {
         const row = document.createElement('tr');
+        row.className = 'clickable-row';
         row.innerHTML = `
             <td>${artist.id}</td>
             <td>${artist.name}</td>
             <td>${artist.albums.length}</td>
             <td>${artist.singles.length}</td>
             <td class="action-buttons">
-                <button class="btn-edit" onclick="openEditModal(${artist.id})">Edit</button>
-                <button class="btn-delete" onclick="deleteArtist(${artist.id})">Delete</button>
+                <button class="btn-edit" onclick="openEditModal(${artist.id}); event.stopPropagation();">Edit</button>
+                <button class="btn-delete" onclick="deleteArtist(${artist.id}); event.stopPropagation();">Delete</button>
             </td>
         `;
+        row.addEventListener('click', function(e) {
+            if (!e.target.closest('.action-buttons')) {
+                viewArtistProfile(artist.id);
+            }
+        });
         tableBody.appendChild(row);
     });
 }
@@ -292,16 +308,22 @@ function searchArtists() {
 
     filteredArtists.forEach(artist => {
         const row = document.createElement('tr');
+        row.className = 'clickable-row';
         row.innerHTML = `
             <td>${artist.id}</td>
             <td>${artist.name}</td>
             <td>${artist.albums.length}</td>
             <td>${artist.singles.length}</td>
             <td class="action-buttons">
-                <button class="btn-edit" onclick="openEditModal(${artist.id})">Edit</button>
-                <button class="btn-delete" onclick="deleteArtist(${artist.id})">Delete</button>
+                <button class="btn-edit" onclick="openEditModal(${artist.id}); event.stopPropagation();">Edit</button>
+                <button class="btn-delete" onclick="deleteArtist(${artist.id}); event.stopPropagation();">Delete</button>
             </td>
         `;
+        row.addEventListener('click', function(e) {
+            if (!e.target.closest('.action-buttons')) {
+                viewArtistProfile(artist.id);
+            }
+        });
         tableBody.appendChild(row);
     });
 }
